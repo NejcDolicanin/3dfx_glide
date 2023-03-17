@@ -1,0 +1,14 @@
+*.a
+*.dll
+*.exe
+*.ilk
+*.o
+*.obj
+*.os
+*.pc
+*.pdb
+*.pyc
+*.pyo
+*.so
+*.sw[a-z]
+*~

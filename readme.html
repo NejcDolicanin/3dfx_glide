@@ -1,0 +1,340 @@
+<HTML>
+<HEAD><TITLE>KoolSmoky - 3dfx GLIDE&#153; for Windows - glide2.x, glide3.x</TITLE></HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#00AA55" VLINK="#004488" ALINK="#A6E7FF">
+<FONT FACE="arial narrow,helvetica" SIZE=3>
+<CENTER>
+<BR>
+<BR>
+<TABLE WIDTH=600 BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD>
+<B><FONT COLOR="#006655" SIZE=5>3dfx GLIDE&#153; for Windows - glide2.x , glide3.x</FONT></B><BR>
+Contact: KoolSmoky , <A HREF="mailto:koolsmoky@3dfxzone.it">koolsmoky@3dfxzone.it</A> , <A HREF="http://www.3dfxzone.it/koolsmoky">http://www.3dfxzone.it/koolsmoky</A></BR>
+<BR>
+Open sourced 3dfx GLIDE&#153; driver for Win32 (Windows 95,98,Me,NT4,2000,XP) ported 
+from the <A HREF="http://glide.sourceforge.net/" TARGET="A">Linux 3dfx GLIDE&#153; source code</A>. The Linux source code was
+originally open sourced by the demised 3dfx Interactive Inc.
+Currently supports 3dfx Voodoo Banshee, Velocity, Voodoo3, Voodoo4, Voodoo5.
+It has been extended to support S3TC (DXTC) compressed textures, T-Buffer effects for all VSA based cards including Voodoo4, and optimizations
+for 3DNOW!, MMX, SSE, SSE2 are used.<BR>
+<FONT COLOR="#FF0000">Note</FONT>: S3TC (DXTC) support is for Voodoo4 and Voodoo5.<BR>
+<FONT COLOR="#FFFFFF">Note:</FONT> 3dfx OpenGL ICD requires GLIDE3x&#153;<BR>
+<FONT COLOR="#FFFFFF">Note:</FONT> 3dfx MiniGL requires GLIDE2x&#153;<BR>
+<BR>
+<B><FONT COLOR="#006655">Installation</FONT></B><BR>
+1. Windows XP users must install the 3dfx Windows 2000 drivers or <A HREF="http://www.3dfxzone.it/koolsmoky/3dfxvs.html">3rd party Windows XP drivers</A>. <BR>
+<FONT COLOR="#FF0000">Note</FONT>: you can skip this step if you do not use Windows XP. If you use 
+  Windows XP you must not skip this step otherwise you will not be able to use 3dfx GLIDE&#153; or hardware
+  accelerated OpenGL.<BR>
+<BR>
+2. Backup your original copy of glide2x.dll and glide3x.dll files.<BR>
+<BR>
+3. copy glide2x.dll and glide3x.dll to the following directory.<BR>
+<FONT COLOR="#FFFFFF">__</FONT>Windows 95,98,Me : /Windows/System<BR>
+<FONT COLOR="#FFFFFF">__</FONT>Windows NT4,2000 : /Winnt/System32<BR>
+<FONT COLOR="#FFFFFF">__</FONT>Windows XP<FONT COLOR="#FFFFFF">______</FONT>: /Windows/System32<BR>
+<BR>
+<B><FONT COLOR="#006655">Issues</FONT></B><BR>
+Multi-Monitor with Windows 2000,XP<BR>
+You may have problems running GLIDE&#153; on 3dfx devices other than the 1st. 
+To run GLIDE&#153; on 2nd or 3rd device, disattach window's desktop from the
+display device using the display properties.<BR>
+<BR>
+<B><FONT COLOR="#006655">License</FONT></B><BR>
+This driver has been ported from the Linux 3dfx GLIDE&#153; source code and is released
+under the 3dfx GLIDE&#153; Source Code General Public License. Please read the license documentation for 
+details.<BR>
+<BR>
+<B><FONT COLOR="#006655">Future Plans</FONT></B><BR>
+Add CPU optimizations, possibly SSE2<BR>
+Port back the source to Linux<BR>
+<BR>
+<B><FONT COLOR="#006655">FAQ</FONT></B><BR>
+1. OpenGL ICD requires Glide3x. MiniGL requires Glide2x.<BR>
+<BR>
+2. Install windows compatibility patch and service pack from microsoft. <BR>
+Windows XP: 
+<A HREF="http://www.microsoft.com/Downloads/Release.asp?ReleaseID=37942" TARGET="A">http://www.microsoft.com/Downloads/Release.asp?ReleaseID=37942</A><BR>
+Windows 2000: 
+<A HREF="http://microsoft.com/windows2000/downloads/tools/appcompat/default.asp" TARGET="A">http://microsoft.com/windows2000/downloads/tools/appcompat/default.asp</A><BR>
+<BR>
+3. Use win98/me compatibility mode for apps having problems in win2k/xp. <BR>
+<BR>
+4. OpenGL ICD requires Glide3x. MiniGL requires *Glide2x*.<BR>
+<BR>
+5. For OpenGL S3TC (DXTC) support, <A HREF="http://www.3dfxzone.it/koolsmoky/glide.html">3dfx OpenGL ICD version 1.0.0.0761</A> (1,102,096 bytes) 
+is required. Legacy texture compression as in Q3A will compress to FXT1 on-the-fly and is not precompressed. 
+UT 2nd CD textures are precompressed. Copy the OpenGL ICD as opengl32.dll to the application or game folder.<BR>
+<BR>
+6. JediKnight2 if menus appear corrupt, add in this setting. <BR>
+seta r_ext_texture_compression_s3tc "1" <BR>
+seta r_ext_preferred_tc_method "1"<BR>
+<BR>
+7. SeriousSam2 if game crashes, disable guardband clipping.<BR>
+<BR>
+8. Medal of Honor Allied Assault use force 16bit texture to see in-game movies.<BR>
+<BR>
+9. 3dfx Post-filtering which enables 22bpp-ish results when running in 16bpp mode 
+can be disabled by adding SSTH3_OVERLAYMODE -1(string) to the registry.<BR>
+<BR>
+10. UnrealTournament if in openGL use the latest ut opengl renderer from 
+<A HREF="http://unreal.epicgames.com/" TARGET="A">Epic's Unreal&#153; engine development team</A> 
+. set UseS3TC=0 if you do *not* use s3tc. if you wish to
+use S3TC with ut's 2nd CD textures, do *not* force mipmap (lod) dithering and 
+set lodbais to -4 via regtweaks. for Win2k/xp Set win95 compatibility mode
+to unrealtournament.exe. use the following in unrealtournament.ini.<BR>
+[OpenGLDrv.OpenGLRenderDevice] <BR>
+RefreshRate=75 <BR>
+DetailTextures=1 <BR>
+UseTrilinear=1 <BR>
+UseS3TC=1 <BR>
+UseTNT=0 <BR>
+LODBias=0 <BR>
+UseMultiTexture=1 <BR>
+UsePalette=1 <BR>
+UseAlphaPalette=1 <BR>
+Translucency=1 <BR>
+VolumetricLighting=1 <BR>
+ShinySurfaces=1 <BR>
+Coronas=1 <BR>
+HighDetailActors=1 <BR>
+MaxAnisotropy=0 <BR>
+AlwaysMipmap=0 <BR>
+UsePrecache=1 <BR>
+SupportsLazyTextures=1 <BR>
+<BR>
+11. there is no x2FSAA with EdgeAA. just x2FSAA with different LOD offests when used with mipmap dithering to reduce banding.<BR>
+<BR>
+12. there is no true trilinear filtering support when used with 3dfx/x3dfx OpenGL ICD. 1.0.0.0761 OpenGL ICD seems to let OpenGL trilinear calls pass through but outputs bilinear. therefore in Q3A, even if you set trilinear in-game the result will be bilinear. enabling force mipmap dithering via driver tool will not turn on trilinear, it will be bilinear with mipmap dithering. Trilinear is possible if the voodoo hardware is setup in a special way, but this has to be done outside glide3x.dll right now. In a true trilinear state, glide3x automatically omits mipmap dithering.<BR>
+<BR>
+13. I have tried my best to keep compatibility with win95/98/me/nt4/2k/xp, however tests are mainly done with win2k/xp. the regtweak unreadable bug in win9x/me is fixed now.<BR>
+<BR>
+14. Although the changes in Glide3x may affect HSR performance in OpenGL, I haven't really focused on the issue. do not threaten me to get it working.<BR>
+<BR>
+15. <A HREF="http://www.glexcess.com" TARGET="A">GLExcess</A>, this ain't a game but for the ogl demo fans, the app will crash at first run, kill with taskmanager and rerun it. it'll run fine after that.<BR>
+<BR>
+16. to play Quake3 engine based games with texture compression, add these lines<BR>
+seta r_ext_compress_textures "1"<BR>
+seta r_ext_compressed_textures "1"<BR>
+seta r_ext_texture_compression_s3tc "1"<BR>
+seta r_ext_s3tc "1"<BR>
+and enable legacy texture compression (fxt1 compression for voodoo4/5) in driver tool. most games with the Q3 engine will use realtime (on-the-fly) compression.<BR>
+<BR>
+17. If you have problems running OpenGL apps, search for 3dfxogl.dll in the windows system directory and copy the file to the apps' directory and rename it to opengl32.dll.<BR>
+<BR>
+18. If you have Z-buffer Clear errors in OpenGL, set OpenGL z-precision to normal or fast in the driver tools. you can also do this by setting string 0 or 1 for FX_GL_16BPP_ZPRECISION and FX_GL_32BPP_ZPRECISION.<BR>
+<BR>
+19. Neverwinter Nights, set HardwareMouse=0 in nwn.ini.<BR>
+<BR>
+<B><FONT COLOR="#006655">Update Logs</FONT></B><BR>
+[Feb.11.2003]<BR>
+Fixed issues with resolution changes and corrected device context strapping under multi-monitor setups.<BR>
+<BR>
+[Feb.09.2003]<BR>
+Fixed a serious problem with GLIDE2x,3x&#153 and OpenGL applications not being able to find a valid rendering device. 
+This bug was especially noticable with Windows 9x,Me. Thanks to all who reported having OpenGL context failures 
+and anomalies with <A HREF="http://lewpy.psxemu.com/" TARGET="A">Lewpy</A>'s PSX GPU Glide3 plugin.This release fixes 
+those problems.<BR>
+<BR>
+[Jan.30.2003]<BR>
+This release includes SSE optimized rasterization routines and SSE2,MMX optimized texture download routines for GLIDE3x&#153; 
+in addition to the preexisting 3DNow! MMX version of the routines. Those who are using anything newer than Intel's Pentium MMX should benefit from 
+these optimizations. Optimizations for GLIDE2x&#153 should follow shortly. SSE and SSE2 optimizations will be used only if both your 
+PC and OS support them. Things changed for both GLIDE2x&#153; and GLIDE3x&#153;; Fixed a bug which may have prevented the drivers 
+from working in win95 and nt4. Corrected RGSS rotational angle for 4xFSAA and 8xFSAA to default to 27.5 degrees.<BR>
+<BR>
+[Dec.13.2002]<BR>
+Fixed a bug which broke compatibiliy with several Glide and OpenGL applications. The driver now runs Operation Flash Point 
+once again. For Neverwinter Nights, set <FONT COLOR="#0033FF">HardwareMouse=0</FONT> in <FONT COLOR="#0033FF">nwn.ini</FONT>. 
+Added 3dfx T-Buffer&#153; support for all 3dfx VSA based cards. We can have 2, 4, and 8 T-buffers depending on the number of AA samples our 
+cards can handle, Voodoo4 is now able to render T-buffer effects.
+Cleaned up FSAA garbage that appear on screen edges such as in Unreal Tournament and Quake3 Arena. Also modified FSAA screen 
+and text sharpness. And since not many seem to know, here are the regtweaks to control FSAA 'blurriness' which has been available 
+from the very first public release. They are the AA jitter values:<BR>
+<BR>
+2xFSAA<BR>
+(FX_GLIDE_AA2_OFFSET_X0, FX_GLIDE_AA2_OFFSET_Y0)<BR>
+(FX_GLIDE_AA2_OFFSET_X1, FX_GLIDE_AA2_OFFSET_Y1)<BR>
+<BR>
+4xFSAA<BR>
+(FX_GLIDE_AA4_OFFSET_X0, FX_GLIDE_AA4_OFFSET_Y0)<BR>
+(FX_GLIDE_AA4_OFFSET_X1, FX_GLIDE_AA4_OFFSET_Y1)<BR>
+(FX_GLIDE_AA4_OFFSET_X2, FX_GLIDE_AA4_OFFSET_Y2)<BR>
+(FX_GLIDE_AA4_OFFSET_X3, FX_GLIDE_AA4_OFFSET_Y3)<BR>
+<BR>
+8xFSAA<BR>
+(FX_GLIDE_AA8_OFFSET_X0, FX_GLIDE_AA8_OFFSET_Y0)<BR>
+(FX_GLIDE_AA8_OFFSET_X1, FX_GLIDE_AA8_OFFSET_Y1)<BR>
+(FX_GLIDE_AA8_OFFSET_X2, FX_GLIDE_AA8_OFFSET_Y2)<BR>
+(FX_GLIDE_AA8_OFFSET_X3, FX_GLIDE_AA8_OFFSET_Y3)<BR>
+(FX_GLIDE_AA8_OFFSET_X4, FX_GLIDE_AA8_OFFSET_Y4)<BR>
+(FX_GLIDE_AA8_OFFSET_X5, FX_GLIDE_AA8_OFFSET_Y5)<BR>
+(FX_GLIDE_AA8_OFFSET_X6, FX_GLIDE_AA8_OFFSET_Y6)<BR>
+(FX_GLIDE_AA8_OFFSET_X7, FX_GLIDE_AA8_OFFSET_Y7)<BR>
+<BR>
+these represent (x, y) offset points from the pixel center and the default values are:<BR>
+<BR>
+2xFSAA<BR>
+(-0.250, -0.250)<BR>
+(0.250, 0.250)<BR>
+<BR>
+4xFSAA<BR>
+(-0.125, -0.375)<BR>
+(0.375, -0.125)<BR>
+(-0.375, 0.125)<BR>
+(0.125, 0.375)<BR>
+<BR>
+8xFSAA<BR>
+(-0.125, -0.375)<BR>
+(-0.25, -0.125)<BR>
+(0.375, -0.125)<BR>
+(0.125, -0.25)<BR>
+(-0.375, 0.125)<BR>
+(0.25, 0.125)<BR>
+(0.125, 0.375)<BR>
+(-0.125, 0.25)<BR>
+<BR>
+The values should be in 3.4 format. Normally the range of -1.0 to 1.0 should be safe. These regtweaks alone give 
+total control over the jitter points, you can position them anywhere you wish, you can even have Ordered Grid Super Sampling (OGSS) 
+instead of 3dfx's Rotated Grid Super Sampling (RGSS). The 'blurriness' is affected by the dispersity of the jitter points and the offset of the pixel center. With this in mind, jitter points
+could be calculated with ( x*(dispersity)+(pixel center offset), y*(dispersity)+(pixel center offset) ), or simply 
+use new regtweaks:<BR>
+<BR>
+FX_GLIDE_AA_JITTERDISP<BR>
+FX_GLIDE_AA_PIXELCENTER<BR>
+FX_GLIDE_AA_GRIDROTATION<BR>
+<BR>
+the last regtweak represents RGSS rotational angle (counter clock wise degrees) and 
+the default values are: 2xFSAA = 45, 4xFSAA = 27.5, 8xFSAA = 27.5. Set FX_GLIDE_AA_GRIDROTATION=0 and we 
+have OGSS.<BR>
+<BR>
+Note: to completely prevent text blurriness, the application must be modified to disable jittering when rendering text. The text
+will not be anti-aliased, but will remain sharp. The same technique could be applied to any object which doesn't require AA.<BR>
+<BR>
+[Nov.09.2002]<BR>
+Glide2x first public release.<BR>
+Thanks to the psx emulation guru <A HREF="http://lewpy.psxemu.com/" TARGET="A">Lewpy</A>, glide3x bug which resized 
+the wrong screen when exiting on multimonitor setups has been fixed. Lewpy's awesome PSX GPU Glide3 Plugin can be found at 
+<A HREF="http://lewpy.psxemu.com/" TARGET="A">http://lewpy.psxemu.com</A>. Lots of other small bug fixes.<BR>
+<BR>
+[Oct.19.2002]<BR>
+Glide2x third private release.<BR>
+<BR>
+[Sept.07.2002]<BR>
+Glide2x second private release.<BR>
+<BR>
+[Aug.18.2002]<BR>
+Glide2x first private release.<BR>
+<BR>
+[July.31.2002]<BR>
+less problems with windows hotkeys.<BR>
+fixed bug with mipmap download.<BR>
+fixed OpenGL UnrealTournament hang on exit in win9x/me.<BR>
+<BR>
+[May.31.2002]<BR>
+fixed regtweaks not working under win9x/me.<BR>
+revised texture handling.<BR>
+<BR>
+[May.25.2002] <BR>
+Paving way for multimonitor support. Retrieves the correct display path now.
+Buggy but tries to render to the correct device.<BR>
+
+Support for precompressed S3TC textures. UnrealTournament 2nd CD textures and
+SeriousSam2 will work with S3TC enabled.<BR>
+
+Fixes for Diablo2. Diablo2 will now run correctly in Glide.<BR>
+
+Eliminates pinkish screens.<BR>
+
+<A HREF="http://www.users.on.net/triforce/glidexp/" TARGET="A">Colourless</A>'s subsample lod dithering trilinear approximation for Voodoo5. Use
+FX_GLIDE_LOD_SUBSAMPLE_DITHER 1(string) to enable, 0 to disable. Default enabled.
+Slightly modified settings to reduce banding when used with mipmap (lod) dithering.
+Subsample lod dithering trilinear approximation will work when running in fsaa
+without trilinear.<BR>
+
+also added fix to prevent crashing from screen mode changes<BR>
+
+and 4chip AA offsets for Voodoo5 6000.<BR>
+<BR>
+[March.1.2002]<BR>
+Started merging Glide3x sources to Glide2x.<BR>
+<BR>
+[Feb.24.2002]<BR>
+Faster screen restores in winxp.<BR>
+<BR>
+[Feb.15.2002]<BR>
+Stopped crashing when window is resized in winxp.<BR>
+<BR>
+[Feb.03.2002]<BR>
+First Public release<BR>
+<BR>
+[Dec.30.2001]<BR>
+Second private release.<BR>
+<BR>
+[Dec.27.2001]<BR>
+Code cleanup.<BR>
+<BR>
+[Dec.20.2001]<BR>
+First private release.<BR>
+<BR>
+[Dec.19.2001]<BR>
+Stopped hanging when task switching from FullScreen in WinXP.<BR>
+<BR>
+[Dec.10.2001]<BR>
+Stopped Glide3x from hanging when exiting from fullscreen OpenGL.<BR>
+<BR>
+[Dec.09.2001]<BR>
+Fixed Glide3x crashing on startup in WinXP.<BR>
+<BR>
+[Dec.08.2001]<BR>
+Glide3x compiled with CPU optimizations.<BR>
+<BR>
+[Dec.03.2001]<BR>
+minihwc compiled.<BR>
+<BR>
+[Nov.24.2001]<BR>
+Begin to compile Glide3x for the Microsoft Windows Platform.<BR>
+<BR>
+[Oct.25.2001]<BR>
+Windows XP launch. Glide crashes on startup in WinXP :(<BR>
+<BR>
+<B><FONT COLOR="#006655">Acknowledgments</FONT></B><BR>
+I would like to take a moment to thank those who generously provided technical information 
+and assistance.<BR>
+<BR>
+<B><FONT COLOR="#006655">Disclaimer</FONT></B><BR>
+This software may be distributed as long as it is not sold commercially without permission 
+from the author. Distribution is permitted provided that no modifications or additions are made to the 
+software, its documentation, or any associated files. Please send me an email with information of 
+distribution. This software is provided as is, without warranty of any kind. The user takes the entire 
+risk as to the quality and performance of the software. The author will not be held liable for any problem 
+the user encounters using this software.<BR>
+<BR>
+  </TD>
+</TR>
+</TABLE>
+<BR>
+<FONT SIZE=1 COLOR="#A0A0A0">November 2002 &copy KoolSmoky</FONT><BR>
+<BR>
+</CENTER>
+
+<!-- Begin Nedstat Basic code -->
+<!-- Title: 3dfx GLIDE for Windows -->
+<!-- URL: http://www.3dfxzone.it/koolsmoky/glide.html -->
+<script language="JavaScript" src="http://m1.nedstatbasic.net/basic.js">
+</script>
+<script language="JavaScript">
+<!--
+  nedstatbasic("ABZGtwnyCWWA5YwHp3CETydMVi+g", 0);
+// -->
+</script>
+<noscript>
+<a target="_blank" href="http://v1.nedstatbasic.net/stats?ABZGtwnyCWWA5YwHp3CETydMVi+g"><img
+src="http://m1.nedstatbasic.net/n?id=ABZGtwnyCWWA5YwHp3CETydMVi+g"
+border="0" nosave width="18" height="18"></a>
+</noscript>
+<!-- End Nedstat Basic code -->
+
+
+</BODY>
+</HTML>
