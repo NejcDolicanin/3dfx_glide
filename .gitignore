@@ -16,3 +16,9 @@
 *.vscode
 *.vsconfig
 *.lib
+*.exp
+*.lst
+*.RES
+*.inc
+**h5/include/*.h
+h5/incsrc/gendate.h
