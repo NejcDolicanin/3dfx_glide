@@ -17,8 +17,6 @@
 ** 
 ** COPYRIGHT 3DFX INTERACTIVE, INC. 1999, ALL RIGHTS RESERVED
 **
-** $Header: f:\\cvsroot/Glide3x/h5/glide3/src/diget.c,v 1.5 2002/04/13 16:53:26 KoolSmoky Exp $
-** $Log: 
 **  22   3dfx      1.17.1.0.1.210/11/00 Brent           Forced check in to enforce
 **       branching.
 **  21   3dfx      1.17.1.0.1.109/15/00 troy thornton   grqueryresolutions now
@@ -1177,7 +1175,20 @@ GR_DIENTRY(grQueryResolutions, FxI32, (const GlideResolution *resTemplate, Glide
     "GR_RESOLUTION_1856x1392", 
     "GR_RESOLUTION_1920x1440", 
     "GR_RESOLUTION_2048x1536", 
-    "GR_RESOLUTION_2048x2048"   
+    "GR_RESOLUTION_2048x2048",
+	/* Extended */
+	"GR_RESOLUTION_1280x720",
+	"GR_RESOLUTION_1280x800",
+	"GR_RESOLUTION_1360x768",
+	"GR_RESOLUTION_1440x900",
+	"GR_RESOLUTION_1600x900",
+	"GR_RESOLUTION_1680x720",
+	"GR_RESOLUTION_1680x1050",
+	"GR_RESOLUTION_1792x768",
+	"GR_RESOLUTION_1920x800",
+	"GR_RESOLUTION_1920x1080",
+	"GR_RESOLUTION_1920x1200",
+	"GR_RESOLUTION_3840x2160"
   };
 
   GDBG_INFO(80, FN_NAME"(0x%x, 0x%x)\n", resTemplate, output);

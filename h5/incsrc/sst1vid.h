@@ -17,8 +17,6 @@
 ** 
 ** COPYRIGHT 3DFX INTERACTIVE, INC. 1999, ALL RIGHTS RESERVED
 **
-** $Header: f:\\cvsroot/Glide3x/h5/incsrc/sst1vid.h,v 1.5 2002/04/13 16:53:28 johndoe Exp $
-** $Log: 
 **  7    3dfx      1.4.1.0.1.0 10/11/00 Brent           Forced check in to enforce
 **       branching.
 **  6    3dfx      1.4.1.0     06/20/00 Joseph Kain     Changes to support the
@@ -103,6 +101,8 @@ typedef FxI32 GrScreenRefresh_t;
 #define GR_REFRESH_100Hz  0x6
 #define GR_REFRESH_85Hz   0x7
 #define GR_REFRESH_120Hz  0x8
+/* Extended */
+#define GR_REFRESH_144Hz  0x9
 #define GR_REFRESH_NONE   0xff
 
 typedef FxI32 GrScreenResolution_t;
@@ -130,6 +130,19 @@ typedef FxI32 GrScreenResolution_t;
 #define GR_RESOLUTION_1920x1440 0x15
 #define GR_RESOLUTION_2048x1536 0x16
 #define GR_RESOLUTION_2048x2048 0x17
+/* Extended */
+#define GR_RESOLUTION_1280x720  0x18	/* 16:9 */
+#define GR_RESOLUTION_1280x800  0x19 	/* 16:10 */
+#define GR_RESOLUTION_1360x768  0x1A	/* 16:9 */
+#define GR_RESOLUTION_1440x900  0x1B 	/* 16:10 */
+#define GR_RESOLUTION_1600x900 	0x1C	/* 16:9 */
+#define GR_RESOLUTION_1680x720 	0x1D	/* 21:9 */
+#define GR_RESOLUTION_1680x1050 0x1E 	/* 16:10 */
+#define GR_RESOLUTION_1792x768 	0x1F	/* 21:9 */
+#define GR_RESOLUTION_1920x800 	0x20	/* 21:9 */
+#define GR_RESOLUTION_1920x1080 0x21	/* 16:9 */
+#define GR_RESOLUTION_1920x1200 0x22	/* 16:10 */
+#define GR_RESOLUTION_3840x2160	0x23	/* 4k to use as max */
 #define GR_RESOLUTION_NONE      0xff
 
 #ifdef GR_RESOLUTION_MAX
@@ -139,7 +152,7 @@ typedef FxI32 GrScreenResolution_t;
 #undef GR_RESOLUTION_MIN
 #endif
 #define GR_RESOLUTION_MIN       GR_RESOLUTION_320x200
-#define GR_RESOLUTION_MAX       GR_RESOLUTION_2048x2048
+#define GR_RESOLUTION_MAX       GR_RESOLUTION_3840x2160
 
 #ifdef __cplusplus
 }

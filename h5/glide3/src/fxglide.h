@@ -17,8 +17,6 @@
 **
 ** COPYRIGHT 3DFX INTERACTIVE, INC. 1999, ALL RIGHTS RESERVE
 **
-** $Header: fxglide.h, 44, 6/15/2000 9:18:11 AM, Bill White
-** $Log:
 **  44   3dfx      1.42.1.0    06/15/00 Bill White      Merged changes to support
 **       Linux.
 **
@@ -566,8 +564,8 @@
  */
 #define GR_TEXFMT_P_8_RGBA           GR_TEXFMT_RSVD0
 
-#define GR_MAX_RESOLUTION   0x17
-#define GR_MAX_REFRESH      8
+#define GR_MAX_RESOLUTION   0x23
+#define GR_MAX_REFRESH      9
 #define GR_MAX_COLOR_BUF    3
 #define GR_MAX_AUX_BUF      1
 #define GR_MIN_RESOLUTION   0

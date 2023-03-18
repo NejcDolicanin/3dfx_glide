@@ -887,7 +887,21 @@ _resTable[] = {
   GR_RESOLUTION_1856x1392, 1856,  1392, /* 0x14 */
   GR_RESOLUTION_1920x1440, 1920,  1440, /* 0x15 */
   GR_RESOLUTION_2048x1536, 2048,  1536, /* 0x16 */
-  GR_RESOLUTION_2048x2048, 2048,  2048  /* 0x17 */
+  GR_RESOLUTION_2048x2048, 2048,  2048,  /* 0x17 */
+  /* Extended */
+  GR_RESOLUTION_1280x720,  1280,   720,
+  GR_RESOLUTION_1280x800,  1280,   800,
+  GR_RESOLUTION_1360x768,  1360,   768,
+  GR_RESOLUTION_1440x900,  1440,   900,
+  GR_RESOLUTION_1600x900,  1600,   900,
+  GR_RESOLUTION_1680x720,  1680,   720,
+  GR_RESOLUTION_1680x1050, 1680,  1050,
+  GR_RESOLUTION_1792x768,  1792,   768,
+  GR_RESOLUTION_1920x800,  1920,   800,
+  GR_RESOLUTION_1920x1080, 1920,  1080,
+  GR_RESOLUTION_1920x1200, 1920,  1200,
+  /* This one added so we have an unreachable max, if more come */
+  GR_RESOLUTION_3840x2160, 3840,  2160
 };
 
 /* ---------------------------------------------
@@ -2012,6 +2026,8 @@ GR_EXT_ENTRY(grSstWinOpenExt, GrContext_t, ( FxU32                   hWnd,
              gc->do2ppc = FXTRUE;
              break ;
           case GR_RESOLUTION_1600x1200:
+		  case GR_RESOLUTION_1920x1080:
+		  case GR_RESOLUTION_1920x1200:
              break;
           case GR_RESOLUTION_1792x1344:
           case GR_RESOLUTION_1856x1392:
@@ -2045,6 +2061,8 @@ GR_EXT_ENTRY(grSstWinOpenExt, GrContext_t, ( FxU32                   hWnd,
           case GR_RESOLUTION_1600x1200:
           case GR_RESOLUTION_1792x1344:
           case GR_RESOLUTION_1856x1392:
+		  case GR_RESOLUTION_1920x1080:
+		  case GR_RESOLUTION_1920x1200:
           case GR_RESOLUTION_1920x1440:
           case GR_RESOLUTION_2048x1536:
           case GR_RESOLUTION_2048x2048:

@@ -1996,10 +1996,10 @@ _GlideInitEnvironment(int which)
 #if GL_AMD3D
       if ((_GlideRoot.CPUType & 0x2L) == 0x2UL) {  /* check for 3DNow! feature */
         GDBG_INFO(0,"using 3DNow!\n");
-		_GlideRoot.deviceArchProcs.curTexProcs        = _texDownloadProcs + 1;																
+		_GlideRoot.deviceArchProcs.curTexProcs        = _texDownloadProcs + 1;
         _GlideRoot.deviceArchProcs.curTriProcs        = _triSetupProcs + 1;
         _GlideRoot.deviceArchProcs.curDrawTrisProc    = _grDrawTriangles_3DNow;
-        _GlideRoot.deviceArchProcs.curVertexListProcs = _vertexListProcs[1];   
+        _GlideRoot.deviceArchProcs.curVertexListProcs = _vertexListProcs[1];
       }
 #endif /* GL_AMD3D */
 #if GL_SSE2
