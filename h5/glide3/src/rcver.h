@@ -27,12 +27,12 @@
 
 #ifdef __WIN32__
 //#define BUILD_NUMBER            0658
-#define BUILD_NUMBER            2610
+#define BUILD_NUMBER            2620
 #endif
 
 //#define VERSIONSTR "3.10.00.0658"
-#define VERSIONSTR "3.10.00.2610"
-#define CONTACTSTR "All comments, suggestions, and questions concerning this file should be sent to KoolSmoky at koolsmoky@3dfxzone.it koolsmoky@hotmail.com. http://www.3dfxzone.it/koolsmoky.\0"
+#define VERSIONSTR "3.10.00.2620"
+#define CONTACTSTR "https://www.3dfxzone.it/enboard/topic.asp?TOPIC_ID=36175\0"
 
 #if defined(__WIN32__)
 #define _TRADEMARK_  "(tm)"

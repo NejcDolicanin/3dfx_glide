@@ -22,3 +22,5 @@
 *.inc
 **h5/include/*.h
 h5/incsrc/gendate.h
+h5/glide3/src/fxgasm.h
+h5/glide3/src/fxinline.h
