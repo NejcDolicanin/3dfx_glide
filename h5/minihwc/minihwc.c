@@ -2975,6 +2975,9 @@ hwcInitLookupRefresh(FxU32 ord_refresh)
   case(GR_REFRESH_120Hz):
     refresh_hz = 120;
     break;
+  case(GR_REFRESH_144Hz):
+    refresh_hz = 144;
+    break;
   default:
     GDBG_ERROR(FN_NAME, "Unsupported Refresh Rate -- defaulting to 60hz\n");
     refresh_hz = 60;
@@ -4407,16 +4410,17 @@ hwcInitVideo(hwcBoardInfo *bInfo, FxBool tiled, FxVideoTimingInfo *vidTiming,
          100,                      /* GR_REFRESH_100Hz  */
          85,                       /* GR_REFRESH_85Hz   */
          120,                      /* GR_REFRESH_120Hz  */
+		 144,                      /* GR_REFRESH_144Hz  */
          0
       };
 
-      if (bInfo->vidInfo.vRefresh > GR_REFRESH_120Hz)
-         refresh = 0;
+      if (bInfo->vidInfo.vRefresh > GR_REFRESH_144Hz || bInfo->vidInfo.vRefresh < GR_REFRESH_60Hz)
+         refresh = 60;
       else
          refresh = bInfo->vidInfo.vRefresh;
 
       refresh = refConstToRefreshHz[refresh]; /* Make sure we use the table, otherwise
-                                               we will always pass 0Hz to setVideoMode */
+                                               we will always pass 60Hz to setVideoMode */
       if (GETENV("FX_GLIDE_REFRESH", bInfo->RegPath))
          refresh = atoi(GETENV("FX_GLIDE_REFRESH", bInfo->RegPath));
 
@@ -7137,7 +7141,20 @@ hwcResolutionSupported(hwcBoardInfo *bInfo, GrScreenResolution_t res, GrScreenRe
     "GR_RESOLUTION_1856x1392",
     "GR_RESOLUTION_1920x1440",
     "GR_RESOLUTION_2048x1536",
-    "GR_RESOLUTION_2048x2048"
+    "GR_RESOLUTION_2048x2048",
+	/* Extended */
+	"GR_RESOLUTION_1280x720",
+	"GR_RESOLUTION_1280x800",
+	"GR_RESOLUTION_1360x768",
+	"GR_RESOLUTION_1440x900",
+	"GR_RESOLUTION_1600x900",
+	"GR_RESOLUTION_1680x720",
+	"GR_RESOLUTION_1680x1050",
+	"GR_RESOLUTION_1792x768",
+	"GR_RESOLUTION_1920x800",
+	"GR_RESOLUTION_1920x1080",
+	"GR_RESOLUTION_1920x1200",
+	"GR_RESOLUTION_3840x2160"
   };
 
 #if 0
@@ -7168,7 +7185,20 @@ hwcResolutionSupported(hwcBoardInfo *bInfo, GrScreenResolution_t res, GrScreenRe
     {1856, 1392},               /* GR_RESOLUTION_1856x1392 */
     {1920, 1440},               /* GR_RESOLUTION_1920x1440 */
     {2048, 1536},               /* GR_RESOLUTION_2048x1536 */
-    {2048, 2048}                /* GR_RESOLUTION_2048x2048 */
+    {2048, 2048},               /* GR_RESOLUTION_2048x2048 */
+	/* Extended */
+	{1280, 720},                /* GR_RESOLUTION_1280x720 */
+	{1280, 800},                /* GR_RESOLUTION_1280x800 */
+	{1360, 768},                /* GR_RESOLUTION_1360x768 */
+	{1440, 900},                /* GR_RESOLUTION_1440x900 */
+	{1600, 900},                /* GR_RESOLUTION_1600x900 */
+	{1680, 720},                /* GR_RESOLUTION_1680x720 */
+	{1680, 1050},               /* GR_RESOLUTION_1680x1050 */
+	{1792, 768},                /* GR_RESOLUTION_1792x768 */
+	{1920, 800},                /* GR_RESOLUTION_1920x800 */
+	{1920, 1080},               /* GR_RESOLUTION_1920x1080 */
+	{1920, 1200},               /* GR_RESOLUTION_1920x1200 */
+	{3840, 2160}                /* GR_RESOLUTION_3840x2160 */
   };
 #endif  
 
@@ -7181,7 +7211,8 @@ hwcResolutionSupported(hwcBoardInfo *bInfo, GrScreenResolution_t res, GrScreenRe
     "GR_REFRESH_90Hz",
     "GR_REFRESH_100Hz",
     "GR_REFRESH_85Hz",
-    "GR_REFRESH_120Hz"    
+    "GR_REFRESH_120Hz",
+	"GR_REFRESH_144Hz"
   };
 
 

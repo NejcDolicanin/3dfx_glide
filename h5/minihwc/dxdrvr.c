@@ -22,7 +22,7 @@
 **       branching.
 **  2    3dfx      1.0.1.0     06/20/00 Joseph Kain     Changes to support the
 **       Napalm Glide open source release.  Changes include cleaned up offensive
-**       comments and new legal headers.
+**       comments and new legal headers. Nejc - you should have left them in.
 **  1    3dfx      1.0         09/11/99 StarTeam VTS Administrator 
 ** $
 ** 
@@ -673,11 +673,13 @@ Contact the application Vendor\n",
     Height = rect.bottom;
   } else {
     /* Full screen mode - convert resolution to Width, Height */
-    static int _w[] = {320,320,400,512,640,640,640,640,800,960,856,512,1024,1280,1600,400};
-    static int _h[] = {200,240,256,384,200,350,400,480,600,720,480,256,768,1024,1200,300};
-
+     /* OLD static int _w[] = {320,320,400,512,640,640,640,640,800,960,856,512,1024,1280,1600,400}; */
+    /* OLD static int _h[] = {200,240,256,384,200,350,400,480,600,720,480,256,768,1024,1200,300}; */
+	static int _w[] = {320,320,400,512,640,640,640,640,800,960,856,512,1024,1280,1600,400,1152,1280,1600,1792,1856,1920,2048,2048,1280,1280,1360,1440,1600,1680,1680,1792,1920,1920,1920,3840};
+    static int _h[] = {200,240,256,384,200,350,400,480,600,720,480,256,768,1024,1200,300,864,960,1024,1344,1392,1440,1536,2048,720,800,768,900,900,720,1050,768,800,1080,1200,2160};
+    
     if ((sRes <  GR_RESOLUTION_320x200) ||
-        (sRes >  GR_RESOLUTION_1600x1200)) 
+        (sRes >  GR_RESOLUTION_3840x2160)) 
 
       return ErrorMessage(hWndApp, "Bad Fullscreen resolution");
 
