@@ -7,9 +7,11 @@ echo # [koolsmoky@3dfxzone.it]
 echo #
 echo # "use: glide2x.bat [ all | gendate | minihwc | dll ] [ clean ]"
 echo #
+rem h5 = vsa-100 family, voodoo 4/5
 set FX_GLIDE_HW=h5
 set BUILDDRIVE=%HOMEDRIVE%
-set BUILD_ROOT=%BUILDDRIVE%\work\3dfx
+set BUILDDRIVE_PROJ=Z:
+set BUILD_ROOT=%BUILDDRIVE_PROJ%\_work\3dfx_glide
 set BUILD_ROOT_SWLIBS=%BUILD_ROOT%\swlibs
 set DXSDKROOT=%BUILDDRIVE%\DXSDK9.0
 set DIRECTXSDK=%DXSDKROOT%

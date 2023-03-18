@@ -12,3 +12,6 @@
 *.so
 *.sw[a-z]
 *~
+*.sln
+*.vscode
+*.vsconfig
