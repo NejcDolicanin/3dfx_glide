@@ -1275,6 +1275,7 @@ typedef struct {
   struct{
     GrCoordinateSpaceMode_t coordinate_space_mode;
   } grCoordinateSpaceArgs;
+  FxU32 forced32BPP;
 } GrState;
 
 /*
@@ -2083,6 +2084,9 @@ struct _GlideRoot_s {
     FxU32  sliBandHeightForce;  /* Force user-specified band height */
     FxU32  is_opengl;           /* specify whether we are opengl app or not */
     FxU32  noHW;                /* Disable HW writes */
+	FxU32  glideResOverride;	/* Glide resolution override */	
+	FxBool mesaFxForce16Text;	/* MesaFx 16bit textures override */	
+	FxBool mesaFxForce16Pix;	/* MesaFx 16bit pixels override */
 
     /* Force alternate buffer strategy */
     FxI32  nColorBuffer;

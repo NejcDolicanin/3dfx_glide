@@ -2686,7 +2686,7 @@ GR_DIENTRY(grEnable, void , (GrEnableMode_t mode) )
     break;
   case GR_OPENGL_MODE_EXT:
     {
-#ifdef WIN32
+#ifdef __WIN32__
       /* EnableOpenGL - Win_Mode.c 
       ** Allow minihwc to know about OpenGL 
       */
@@ -2697,7 +2697,8 @@ GR_DIENTRY(grEnable, void , (GrEnableMode_t mode) )
      _GlideRoot.environment.is_opengl=FXTRUE;
 #endif
       /* Set up some stuff that's affected by OpenGL's behaviour. */
-      _GlideRoot.environment.sliBandHeightForce = FXTRUE;
+	  /* Nejc, commented out, so it doesnt fk MesaFx */
+      /* _GlideRoot.environment.sliBandHeightForce = FXTRUE; */
     }
     break;
 #endif

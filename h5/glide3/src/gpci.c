@@ -17,8 +17,6 @@
 **
 ** COPYRIGHT 3DFX INTERACTIVE, INC. 1999, ALL RIGHTS RESERVE
 **
-** $Header: f:\\cvsroot/Glide3x/h5/glide3/src/gpci.c,v 1.9 2002/05/04 02:07:43 KoolSmoky Exp $
-** $Log:
 **  50             1.41        12/28/02 KoolSmoky       changes to support MMX,SSE,SSE2 optimizations
 **  49             1.40        12/27/02 KoolSmoky       subsample lod dither with less overhead
 **  48   ve3d      1.39        05/02/02 KoolSmoky       Colourless's subsample
@@ -617,14 +615,14 @@ static GrTriSetupProc _triSetupProcs[][2][2][2] =
   {
     /* Window coords */
     {
-      { _trisetup_null, _trisetup_null },
-      { _trisetup_null, _trisetup_null },
+      { (GrTriSetupProc) _trisetup_null, (GrTriSetupProc) _trisetup_null },
+      { (GrTriSetupProc) _trisetup_null, (GrTriSetupProc) _trisetup_null },
     },
 
     /* Clip coordinates */
     {
-      { _trisetup_null, _trisetup_null },
-      { _trisetup_null, _trisetup_null },
+      { (GrTriSetupProc) _trisetup_null, (GrTriSetupProc) _trisetup_null },
+      { (GrTriSetupProc) _trisetup_null, (GrTriSetupProc) _trisetup_null },
     },
   },
 };
@@ -712,7 +710,7 @@ static GrTexDownloadProc _texDownloadProcs[][4][5] =
       _grTexDownload_3DNow_MMX,
       _grTexDownload_3DNow_MMX,
       _grTexDownload_3DNow_MMX
-      },
+    },
     {
       _grTexDownload_Default_32_1,
       _grTexDownload_3DNow_MMX,
@@ -1214,15 +1212,12 @@ _grSstDetectResources(void)
       
       if (GETENV("FX_GLIDE_NUM_TMU", GC.bInfo->RegPath)) {
         int num_tmu = atoi(GETENV("FX_GLIDE_NUM_TMU", GC.bInfo->RegPath));
-        switch (num_tmu) {
-        case 1:
-          GC.num_tmu = 1;
-          GC.fbuf_size = (bInfo->h3Mem - 2);
-          break;
-        case 2:
+        if(num_tmu > 1) {
           GC.num_tmu = 2;
           GC.fbuf_size = (bInfo->h3Mem - 4);
-          break;
+        } else {
+          GC.num_tmu = 1;
+          GC.fbuf_size = (bInfo->h3Mem - 2);
         }         
       }
       
@@ -1394,11 +1389,20 @@ _GlideInitEnvironment(int which)
   //GDBG_INFO(80,"      aaJitterDisp: %f\n",_GlideRoot.environment.aaJitterDisp);
   //_GlideRoot.environment.aaGridRotation    = GLIDE_FGETENV("FX_GLIDE_AA_GRIDROTATION", GC.bInfo->RegPath, 27.5f); /* original values 2xaa=45deg 4xaa,8xaa=27.5deg */
   //GDBG_INFO(80,"    aaGridRotation: %f\n",_GlideRoot.environment.aaGridRotation);
-
+  
+  /* Glide resolution override */
+  _GlideRoot.environment.glideResOverride	= GLIDE_GETENV("FX_GLIDE_OVERRIDE_RESOLUTION", GC.bInfo->RegPath, 0L);
+  GDBG_INFO(80,"              glideResOverride: %d\n",_GlideRoot.environment.glideResOverride);
+  /* MesaFx 16bit overrides */
+  _GlideRoot.environment.mesaFxForce16Text = GETENV("FX_MESA_FORCE_16BPP_TEXTURES", GC.bInfo->RegPath) != NULL;
+  GDBG_INFO(80,"              mesaFxForce16Text: %d\n",_GlideRoot.environment.mesaFxForce16Text);
+  _GlideRoot.environment.mesaFxForce16Pix  = GETENV("FX_MESA_FORCE_16BPP_PIX", GC.bInfo->RegPath) != NULL;
+  GDBG_INFO(80,"              mesaFxForce16Pix: %d\n",_GlideRoot.environment.mesaFxForce16Pix);
+  
   /* set default glide state to not openGL app */
-  /* only if it's not already set to openGL app
+  /* only if it's not already set to openGL app */
   if(_GlideRoot.environment.is_opengl != FXTRUE)
-    _GlideRoot.environment.is_opengl = FXFALSE; */
+    _GlideRoot.environment.is_opengl = FXFALSE;
 
   /* note - glide now uses a string representation for the AA jitter values */
   /* This is the "old" way of doing two-sample AA, where each chip does two samples. */  
@@ -1509,6 +1513,7 @@ _GlideInitEnvironment(int which)
   _GlideRoot.environment.aaYOffset[6][7]   = GLIDE_34GETENV_Y("FX_GLIDE_AA4_OFFSET_X3", "FX_GLIDE_AA4_OFFSET_Y3", GC.bInfo->RegPath, SECBUFVTXOFFX_4SMPL_CHP1_CORRECT_DEF, SECBUFVTXOFFY_4SMPL_CHP1_CORRECT_DEF);//GLIDE_34GETENV("FX_GLIDE_AA4_OFFSET_Y3", GC.bInfo->RegPath, SECBUFVTXOFFY_4SMPL_CHP1_CORRECT_DEF);
 
 /* jcochrane 4 chip offsets
+ * Not any more, now they are Colourless offsets																																		
  *
  * About: The strange ordering would allow FSAA to still
  * work regardless of the SLI/Samples per chip configuration */
@@ -1991,10 +1996,10 @@ _GlideInitEnvironment(int which)
 #if GL_AMD3D
       if ((_GlideRoot.CPUType & 0x2L) == 0x2UL) {  /* check for 3DNow! feature */
         GDBG_INFO(0,"using 3DNow!\n");
+		_GlideRoot.deviceArchProcs.curTexProcs        = _texDownloadProcs + 1;																
         _GlideRoot.deviceArchProcs.curTriProcs        = _triSetupProcs + 1;
         _GlideRoot.deviceArchProcs.curDrawTrisProc    = _grDrawTriangles_3DNow;
-        _GlideRoot.deviceArchProcs.curVertexListProcs = _vertexListProcs[1];
-        _GlideRoot.deviceArchProcs.curTexProcs        = _texDownloadProcs + 1;
+        _GlideRoot.deviceArchProcs.curVertexListProcs = _vertexListProcs[1];   
       }
 #endif /* GL_AMD3D */
 #if GL_SSE2
@@ -2004,8 +2009,6 @@ _GlideInitEnvironment(int which)
       }
 #endif /* GL_SSE2*/
     }
-    
-
   }
 #if __POWERPC__ && PCI_BUMP_N_GRIND
   _GlideRoot.environment.autoBump = FXFALSE;

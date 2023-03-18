@@ -18,8 +18,6 @@
 **
 ** COPYRIGHT 3DFX INTERACTIVE, INC. 1999, ALL RIGHTS RESERVE
 **
-** $Header: f:\\cvsroot/Glide3x/h5/glide3/src/gsst.c,v 1.9 2002/05/04 02:07:43 KoolSmoky Exp $
-** $Log:
 **  74   ve3d      1.58         06/24/02 KoolSmoky    revert back to releasing exclusive
 **       mode when exiting OpenGL apps.
 **  73   ve3d      1.57         05/23/02 KoolSmoky    Never release Exclusive mode when
@@ -1411,6 +1409,16 @@ GR_ENTRY(grSstWinOpen, GrContext_t, ( FxU32                   hWnd,
   {
     /* Partial Argument Validation */
     GR_BEGIN_NOFIFOCHECK_NORET("grSstWinOpen",80);
+	
+	/* Nd Force glide resolution - maybe needs to be moved lower */
+	GDBG_INFO( 80, "nejc glideResOverride value: %d\n", _GlideRoot.environment.glideResOverride);
+	GDBG_INFO( 80, "nejc0 isOpenGl value: %d\n", _GlideRoot.environment.is_opengl);
+	if ( _GlideRoot.environment.glideResOverride > 1 && _GlideRoot.environment.is_opengl == FXFALSE)
+	{
+		GDBG_INFO( 80, "nejc override hit resolution: %d\n", _GlideRoot.environment.glideResOverride);
+		resolution = _GlideRoot.environment.glideResOverride; 
+	}
+	
     GDBG_INFO_MORE(gc->myLevel,
                    "(rez=%d,ref=%d,cformat=%d,origin=%s,#bufs=%d, #abufs=%d)\n",
                    resolution,refresh,format,
@@ -1574,6 +1582,16 @@ GR_EXT_ENTRY(grSstWinOpenExt, GrContext_t, ( FxU32                   hWnd,
   {
     /* Partial Argument Validation */
     GR_BEGIN_NOFIFOCHECK_NORET("grSstWinOpen",80);
+	
+	/* Force glide resolution */
+	GDBG_INFO( 80, "nejc glideResOverride value: %d\n", _GlideRoot.environment.glideResOverride);
+	GDBG_INFO( 80, "nejc isOpenGl value: %d\n", _GlideRoot.environment.is_opengl);
+	if ( _GlideRoot.environment.glideResOverride > 1 && _GlideRoot.environment.is_opengl == FXFALSE)
+	{
+		GDBG_INFO( 80, "nejc override hit resolution: %d\n", _GlideRoot.environment.glideResOverride);
+		resolution = _GlideRoot.environment.glideResOverride; 
+	}
+	
     GDBG_INFO_MORE(gc->myLevel,
                    "(rez=%d,ref=%d,cformat=%d,origin=%s,#bufs=%d, #abufs=%d)\n",
                    resolution,refresh,format,
@@ -1989,6 +2007,7 @@ GR_EXT_ENTRY(grSstWinOpenExt, GrContext_t, ( FxU32                   hWnd,
       {
         switch (gc->grSstRez) 
         {
+		  /* Since 2ppc is defaulted at true, no need to add here */												 
           case GR_RESOLUTION_1600x1024:
              gc->do2ppc = FXTRUE;
              break ;
@@ -2117,6 +2136,7 @@ GR_EXT_ENTRY(grSstWinOpenExt, GrContext_t, ( FxU32                   hWnd,
        * for a non-zero chipScreenHeight is just 
        * in case something bad happens and it starts         
        * out as zero. */
+	  /* This will cause problems if mesaFx is used, will keep sliBandHeightForce disabled */												
       if(!_GlideRoot.environment.sliBandHeightForce) {
         while(!(chipScreenHeight & 1) && chipScreenHeight) {
           maxBandHeightLog2++;
@@ -2327,6 +2347,7 @@ GR_EXT_ENTRY(grSstWinOpenExt, GrContext_t, ( FxU32                   hWnd,
     /*
     ** if we only have one TMU or we are using UMA, do similar things
     */
+	/* Nejc, think this isnt correct, should be gc->num_tmu < 2 */										  
     if (
       (gc->num_tmu < 1) ||
       (gc->state.grEnableArgs.texture_uma_mode == GR_MODE_ENABLE)

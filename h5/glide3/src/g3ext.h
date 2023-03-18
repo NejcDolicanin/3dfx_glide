@@ -107,7 +107,7 @@ typedef FxU32 GrStencilOp_t;
 
 #define GR_TEXTURE_UMA_EXT       0x06
 #define GR_STENCIL_MODE_EXT      0x07
-#define GR_OPENGL_MODE_EXT       0x08
+#define GR_OPENGL_MODE_EXT       0x08              /* Will be called from mesaFx */
 
 typedef FxU32 GrCCUColor_t;
 

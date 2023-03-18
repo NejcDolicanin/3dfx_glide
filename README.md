@@ -9,9 +9,9 @@ But since it has better compatibility with Win98, it is the version I will push 
 Also provides a nice learning experience porting sourceForge/glide project changes to it.
 Thanks to 3dfx and everyone involved in glide and mesa projects.
 
-This version is used in the 3dfx Wide driver v1.1 available here:
+This glide3x.dll version is used in the 3dfx Wide driver v1.1 available here:
 https://www.3dfxzone.it/dir/3dfx/drivers/?objid=1137
-"Discussion" thread:
+"Discussion-ish" thread:
 https://www.3dfxzone.it/enboard/topic.asp?TOPIC_ID=36175
 
 
