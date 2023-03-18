@@ -662,8 +662,8 @@ static GrTexDownloadProc _texDownloadProcs[][4][5] =
     {
       _grTexDownload_Default_4_8,
       _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
+      _grTexDownload_Default_4_WideS,
+      _grTexDownload_Default_4_WideS,
       _grTexDownload_Default_4_WideS
     }, 
     {
@@ -681,20 +681,20 @@ static GrTexDownloadProc _texDownloadProcs[][4][5] =
       _grTexDownload_Default_16_WideS
     },
     {
+      _grTexDownload_Default_32_1, /* unused */
       _grTexDownload_Default_32_1,
       _grTexDownload_Default_32_WideS,
-      _grTexDownload_Default_32_WideS,
-      _grTexDownload_Default_32_WideS,
+      _grTexDownload_Default_32_WideS, /* unused */
       _grTexDownload_Default_32_WideS
     }
   },
 #if GL_AMD3D
   { 
     {
-      _grTexDownload_Default_4_8,
       _grTexDownload_Default_4_4,
       _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
+      _grTexDownload_3DNow_MMX,
+      _grTexDownload_3DNow_MMX,
       _grTexDownload_3DNow_MMX
     }, 
     { 
@@ -712,10 +712,10 @@ static GrTexDownloadProc _texDownloadProcs[][4][5] =
       _grTexDownload_3DNow_MMX
     },
     {
+      _grTexDownload_Default_32_1, /* unused */
       _grTexDownload_Default_32_1,
       _grTexDownload_3DNow_MMX,
-      _grTexDownload_3DNow_MMX,
-      _grTexDownload_3DNow_MMX,
+      _grTexDownload_3DNow_MMX, /* unused */
       _grTexDownload_3DNow_MMX
     }
   },
@@ -723,10 +723,10 @@ static GrTexDownloadProc _texDownloadProcs[][4][5] =
 #if GL_MMX
   { 
     {
+      _grTexDownload_Default_4_4,
       _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
+      _grTexDownload_MMX,
+      _grTexDownload_MMX,
       _grTexDownload_MMX
     }, 
     { 
@@ -744,10 +744,10 @@ static GrTexDownloadProc _texDownloadProcs[][4][5] =
       _grTexDownload_MMX
     },
     {
+      _grTexDownload_Default_32_1, /* unused */
       _grTexDownload_Default_32_1,
       _grTexDownload_MMX,
-      _grTexDownload_MMX,
-      _grTexDownload_MMX,
+      _grTexDownload_MMX, /* unused */
       _grTexDownload_MMX
     }
   },
@@ -755,32 +755,32 @@ static GrTexDownloadProc _texDownloadProcs[][4][5] =
 #if GL_SSE2
   { 
     {
+      _grTexDownload_Default_4_4,
       _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
-      _grTexDownload_Default_4_8,
-      _grTexDownload_SSE2_64
+      _grTexDownload_SSE2_64,
+      _grTexDownload_SSE2_64, /* _grTexDownload_SSE2_128*/
+      _grTexDownload_SSE2_64 /* _grTexDownload_SSE2_128*/
     }, 
     { 
       _grTexDownload_Default_8_1, 
       _grTexDownload_Default_8_2, 
       _grTexDownload_Default_8_4, 
       _grTexDownload_SSE2_64, 
-      _grTexDownload_SSE2_128
+      _grTexDownload_SSE2_64 /*_grTexDownload_SSE2_128*/
     },
     {
       _grTexDownload_Default_16_1,
       _grTexDownload_Default_16_2,
       _grTexDownload_SSE2_64,
-      _grTexDownload_SSE2_128,
-      _grTexDownload_SSE2_128
+      _grTexDownload_SSE2_64, /*_grTexDownload_SSE2_128*/	/* Problem here nejc */
+      _grTexDownload_SSE2_64 /*_grTexDownload_SSE2_128*/
     },
     {
+      _grTexDownload_Default_32_1, /* unused */
       _grTexDownload_Default_32_1,
       _grTexDownload_SSE2_64,
-      _grTexDownload_SSE2_128,
-      _grTexDownload_SSE2_128,
-      _grTexDownload_SSE2_128
+      _grTexDownload_SSE2_64, /* unused */ /*_grTexDownload_SSE2_128*/
+      _grTexDownload_SSE2_64 /*_grTexDownload_SSE2_128*/
     }
   },
 #endif /* GL_SSE2 */
@@ -1241,9 +1241,9 @@ _grSstDetectResources(void)
 
       /* Clear the tmu state */
       for (tmu = 0; tmu < GC.num_tmu; tmu++) {
-        memset(&GC.tmu_state[0], 0, sizeof(GC.tmu_state[0]));       
-        GC.tmu_state[0].total_mem = (0x2 << 20);
-        GC.tmu_state[0].ncc_mmids[0] = GC.tmu_state[0].ncc_mmids[1] = GR_NULL_MIPMAP_HANDLE;
+        memset(&GC.tmu_state[tmu], 0, sizeof(GC.tmu_state[0]));       
+        GC.tmu_state[tmu].total_mem = (0x2 << 20);
+        GC.tmu_state[tmu].ncc_mmids[0] = GC.tmu_state[tmu].ncc_mmids[1] = GR_NULL_MIPMAP_HANDLE;
       }
 
     } /* iterate through boards found */
@@ -1513,7 +1513,7 @@ _GlideInitEnvironment(int which)
   _GlideRoot.environment.aaYOffset[6][7]   = GLIDE_34GETENV_Y("FX_GLIDE_AA4_OFFSET_X3", "FX_GLIDE_AA4_OFFSET_Y3", GC.bInfo->RegPath, SECBUFVTXOFFX_4SMPL_CHP1_CORRECT_DEF, SECBUFVTXOFFY_4SMPL_CHP1_CORRECT_DEF);//GLIDE_34GETENV("FX_GLIDE_AA4_OFFSET_Y3", GC.bInfo->RegPath, SECBUFVTXOFFY_4SMPL_CHP1_CORRECT_DEF);
 
 /* jcochrane 4 chip offsets
- * Not any more, now they are Colourless offsets																																		
+ * Not any more, now they are Colourless offsets
  *
  * About: The strange ordering would allow FSAA to still
  * work regardless of the SLI/Samples per chip configuration */
@@ -1923,6 +1923,7 @@ _GlideInitEnvironment(int which)
       _GlideRoot.CPUType &= ~0x10UL;
     }
   }
+  /* ToDo Nejc Sse2 disable */
   if((_GlideRoot.CPUType & 0x40L) == 0x40UL) {
     __try {
       __asm _emit 0x66 
